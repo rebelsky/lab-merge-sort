@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Comparator;
 import java.io.PrintWriter;
+import java.util.Random;
 
 /**
  * Experiments with merge sort.
@@ -21,6 +22,7 @@ public class MergeSortExperiments {
     PrintWriter pen = new PrintWriter(System.out, true);
     experiment01(pen);
     experiment02(pen);
+    experiment03(pen);
   } // main
 
   // +-------------+-------------------------------------------------
@@ -53,11 +55,38 @@ public class MergeSortExperiments {
    */
   static void experiment02(PrintWriter pen) {
     stringSortExperiment(pen, new String[] { "foo", "bar", "baz", "qux", "fu" });
-  } // experiment(02)
+  } // experiment02(PrintWriter)
+
+  /**
+   * Sort a larger array of integers.
+   */
+  static void experiment03(PrintWriter pen) {
+    int size = 100;
+    Integer[] vals = new Integer[size];
+    Random r = new Random();
+    // Fill the array in order.
+    for (int i = 0; i < size; i++) {
+      vals[i] = i;
+    } // for
+    // Permute the array
+    for (int i = 0; i < size; i++) {
+      swap(vals, i, r.nextInt(size));
+    } // for
+    integerSortExperiment(pen, vals);
+  } // experiment03(PrintWriter)
 
   // +---------+-----------------------------------------------------
   // | Helpers |
   // +---------+
+
+  /**
+   * Swap two elements in an array.
+   */
+  static <T> void swap(T[] vals, int i, int j) {
+    T tmp = vals[i];
+    vals[i] = vals[j];
+    vals[j] = tmp;
+  } // swap(T[], int, int)
 
   /**
    * Sort an array of integers.
